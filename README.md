@@ -27,5 +27,5 @@ $ echo "5" | ./interpreter.py programs/factorial.b93
 
 otherwise input will be prompted for like normal:
 
-* `=>` input line (waits for line feed)
+* `=>` input integer (waits for line feed)
 *  `>` input character (waits for single character)

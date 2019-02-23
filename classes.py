@@ -158,6 +158,7 @@ class FungeSpace:
         if isinstance(idx, Vector):
             self.__check_coords(idx)
             return self._data[idx.y][idx.x]
+
         if isinstance(idx, tuple):
             return self.__getitem__(Vector(*idx))
         raise IndexError("Index must be Vector(x, y)")
@@ -167,12 +168,14 @@ class FungeSpace:
         if isinstance(idx, Vector):
             self.__check_coords(idx)
             self._data[idx.y][idx.x] = val
+
         elif isinstance(idx, tuple):
             self.__setitem__(Vector(*idx), val)
         else:
             raise IndexError("Index must be Vector(x, y)")
 
     def __check_coords(self, idx: Vector) -> None:
+        """Only get and put commands can extend the space."""
         col_len = len(self._data)
         if idx.y >= col_len:
             self._data.append(bytearray(idx.y - col_len + 1))
@@ -188,5 +191,5 @@ class FungeSpace:
         self.ip.move(self._data)
 
     def __repr__(self) -> str:
-        """Show current position of instruction pointer (IP)"""
+        """Show current position of instruction pointer"""
         return "<FungeSpace [%d,%d]>" % self.ip.loc()
