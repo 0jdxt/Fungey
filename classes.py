@@ -110,11 +110,13 @@ class StateManager:
             self._data[char] = fn
 
     def update(self, char: str) -> bool:
+        # If end state found, Toggle state off
         if self._active == char:
             self._state = False
             self._active = ""
             return False
 
+        # If state found, Toggle state on
         func = self._data.get(self._active or char)
         if func:
             if self._state:
@@ -123,6 +125,8 @@ class StateManager:
                 self._state = True
                 self._active = char
             return False
+
+        # Instruction not a state modifier
         return True
 
 
