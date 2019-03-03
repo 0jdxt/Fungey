@@ -34,5 +34,6 @@ otherwise input will be prompted for like normal:
 
 ### Future/TODO
 
+- Finish implementing -98.
 - Define modes to run in either -93 or -98 mode via flags
 - Speed test commands/classes for optimisations
