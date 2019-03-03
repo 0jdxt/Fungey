@@ -14,7 +14,6 @@ import math
 from collections import namedtuple
 import sys
 
-
 Vector = namedtuple("Vector", ("x", "y"))
 
 
