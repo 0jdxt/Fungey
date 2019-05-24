@@ -85,7 +85,7 @@ def _cmd_logic_not(space: FungeSpace) -> int:
     return int(not space.stack.pop())
 
 
-@_instruction(">")
+@_instruction("`")
 def _cmd_logic_gt(space: FungeSpace) -> int:
     a, b = space.stack.pop(2)
     return int(b > a)
