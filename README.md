@@ -3,7 +3,7 @@ Befunge-93/98 interpreter written in Python.
 
 *98 is only partially supported. Check [instructions.py](https://github.com/0jdxt/Fungey/blob/master/instructions.py).*
 
-Instructions available: `(space) (0-9) (a-f) @ # + * - / % ! > : \ $ g p ^ v < [ ] ? _ | . , & ~`.
+Instructions available: ``(space) (0-9) (a-f) @ # + * - / % ! ` : \ $ g p ^ v < > [ ] ? _ | . , & ~``.
 
 ***
 
