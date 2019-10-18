@@ -1,21 +1,10 @@
-from typing import (
-    List,
-    Union,
-    Optional,
-    Tuple,
-    Callable,
-    Any,
-    Dict,
-    overload,
-    ByteString,
-)
+from typing import List, Union, Optional, Tuple, Callable, Any, Dict, overload, ByteString
 import random
 import math
 from collections import namedtuple
 import sys
 
 Vector = namedtuple("Vector", ("x", "y"))
-
 
 class InstructionPointer:
     def __init__(self, init_vec: Vector = Vector(0, 0)) -> None:
@@ -104,23 +93,23 @@ class StateManager:
         """Keeps track of special states/modes."""
         self._state = False
         self._active = ""
-        self._data: Dict[str, Callable] = {}
-        for char, fn in mapping.items():
-            self._data[char] = fn
+        self._data = mapping
 
     def update(self, char: str) -> bool:
         # If end state found, Toggle state off
         if self._active == char:
+            # print("Toggle state off:", char)
             self._state = False
             self._active = ""
             return False
 
         # If state found, Toggle state on
-        func = self._data.get(self._active or char)
-        if func:
+        if (func := self._data.get(self._active or char)):
             if self._state:
+                # print("Exec state:", char)
                 func()
             else:
+                # print("Toggle state on:", char)
                 self._state = True
                 self._active = char
             return False
@@ -167,7 +156,6 @@ class FungeSpace:
         if isinstance(idx, Vector):
             self.__check_coords(idx)
             self._data[idx.y][idx.x] = val
-
         elif isinstance(idx, tuple):
             self.__setitem__(Vector(*idx), val)
         else:
@@ -175,12 +163,10 @@ class FungeSpace:
 
     def __check_coords(self, idx: Vector) -> None:
         """Only get and put commands can extend the space."""
-        col_len = len(self._data)
-        if idx.y >= col_len:
+        if (col_len := len(self._data)) <= idx.y:
             self._data.append(bytearray(idx.y - col_len + 1))
 
-        row_len = len(self._data[idx.y])
-        if idx.x >= row_len:
+        if (row_len := len(self._data[idx.y])) <= idx.x:
             self._data[idx.y].extend([ord(" ")] * (idx.x - row_len + 1))
 
     def val(self) -> int:

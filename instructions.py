@@ -17,8 +17,8 @@ def _instruction(chars: str) -> Callable:
 
         def wrapped(space: FungeSpace) -> None:
             """Run instruction, if return value push value to stack"""
-            res = fn(space)
-            if res is not None:
+            # print(fn.__name__)
+            if (res := fn(space)) is not None:
                 space.stack.push(res)
 
         _command_routes.update(dict.fromkeys(chars, wrapped))
@@ -155,18 +155,12 @@ def _cmd_drctn_rand(space: FungeSpace) -> None:
 
 @_instruction("_")
 def _cmd_drctn_H_or(space: FungeSpace) -> None:
-    if space.stack.pop():
-        space.ip.west()
-    else:
-        space.ip.east()
+    space.ip.west() if space.stack.pop() else space.ip.east()
 
 
 @_instruction("|")
 def _cmd_drctn_V_or(space: FungeSpace) -> None:
-    if space.stack.pop():
-        space.ip.north()
-    else:
-        space.ip.south()
+    space.ip.north() if space.stack.pop() else space.ip.south()
 
 
 @_instruction(".")
@@ -201,5 +195,5 @@ def _cmd_unknown(space: FungeSpace) -> None:
 def run_instruction(char: str, space: FungeSpace) -> None:
     """Get and run instruction"""
     fn = _command_routes.get(char, _cmd_unknown)
-    # print(char, fn.__name__, space.stack)
+    print(f"{char=} {space.stack=}")
     fn(space)

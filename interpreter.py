@@ -19,14 +19,11 @@ def main(program: click.File, raw: bool = False) -> None:
     while space.running:
         cmd = space.val()
         char = chr(cmd)
-        # print(space.ip.loc(), ":", cmd, char, end=" ")
 
         if space.toggle_states(char):
             run_instruction(char, space)
 
-        # print(space.stack)
         space.move()
-        # print(space.ip.loc(), space.val())
 
     # output newline to terminal unless --raw
     if (not raw) and stdout.isatty():
